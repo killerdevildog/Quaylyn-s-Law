@@ -203,16 +203,123 @@ The earlier a system commits to an unverified model, the more fragile it becomes
 
 ## **8\. Comparison to Existing Frameworks**
 
-Quaylyn's Law is distinct from:
+Quaylyn's Law is distinct from similar-seeming approaches because it operates at a fundamentally different stage of reasoning:
 
-* Occam's Razor (model minimization)
+### **8.1 Not Occam's Razor**
 
-* Bayesian inference (probability updating)
+**Occam's Razor:** "Entities should not be multiplied without necessity" - choose the simplest explanation.
 
-* Scientific method (hypothesis-driven)
+**Why Quaylyn's Law is different:**
+- Occam's Razor **requires competing explanations to already exist** before selecting the simplest
+- Quaylyn's Law operates **before explanations are formulated** - it generates candidates through elimination
+- Occam's Razor is a **selection criterion** among models
+- Quaylyn's Law is a **discovery method** that precedes model formation
+- Occam's Razor assumes you have theories to compare; Quaylyn's Law assumes you don't yet know what theories are viable
 
-These frameworks still assume models.  
- **Quaylyn's Law operates before models exist.**
+**Example:** Debugging an unknown crash
+- Occam's Razor: "Choose the simplest explanation among the bugs you've identified"
+- Quaylyn's Law: "Eliminate code regions that clearly aren't causing the crash, before you even know what the bug is"
+
+---
+
+### **8.2 Not Bayesian Inference**
+
+**Bayesian Inference:** Update probability distributions based on new evidence using Bayes' theorem.
+
+**Why Quaylyn's Law is different:**
+- Bayesian methods **require a prior probability distribution** - you must already have a model of what outcomes are likely
+- Quaylyn's Law operates **without priors** - no probability distribution is needed
+- Bayesian updating assumes you know the hypothesis space; Quaylyn's Law discovers the hypothesis space
+- Bayesian inference is **calculation-driven** (compute posterior probabilities)
+- Quaylyn's Law is **comparison-driven** (eliminate worse, keep better)
+- Bayesian methods struggle when you don't know what to assign probabilities to; Quaylyn's Law thrives in exactly that scenario
+
+**Example:** Finding a bug in unfamiliar codebase
+- Bayesian approach: "Assign probabilities to each module being the source, update as you test"
+- Quaylyn's Law: "Compare error rates across code paths, eliminate paths that clearly don't trigger the issue, regardless of prior beliefs"
+
+---
+
+### **8.3 Not the Scientific Method**
+
+**Scientific Method:** Form a hypothesis, design an experiment, test, and refine the theory.
+
+**Why Quaylyn's Law is different:**
+- The scientific method **requires a falsifiable hypothesis first** - you must propose what might be true
+- Quaylyn's Law operates **before hypothesis formation** - discovery through elimination
+- The scientific method is **theory-driven**: you test specific claims
+- Quaylyn's Law is **data-driven**: you follow comparative improvement without claiming a theory
+- The scientific method assumes you can articulate what you're testing; Quaylyn's Law assumes you can't yet articulate it
+
+**Example:** Investigating why a system crashes
+- Scientific method: "I hypothesize the crash is caused by memory leak in module X. Test: run module X in isolation and measure memory."
+- Quaylyn's Law: "Run the system with different modules disabled. Eliminate the modules whose removal doesn't affect the crash, before forming any hypothesis."
+
+---
+
+### **8.4 Not Binary Search**
+
+**Binary Search:** Divide a sorted space in half repeatedly to find a target (assumes ordering and complete information).
+
+**Why Quaylyn's Law is different:**
+- Binary search **requires a sorted, known space** with precise evaluation
+- Quaylyn's Law operates in **unsorted, unknown spaces** with noisy evaluation
+- Binary search eliminates 50% per iteration (too aggressive under uncertainty)
+- Quaylyn's Law eliminates ~33% per iteration (optimal under noise, empirically proven)
+- Binary search assumes your comparisons are always correct
+- Quaylyn's Law assumes your comparisons are often noisy and requires robustness
+
+**Example:** Finding a value in a sorted array vs. finding a bug
+- Binary search: "Check the middle element. If target is smaller, eliminate upper half. Repeat." (Works because array is sorted and comparisons are precise)
+- Quaylyn's Law: "Evaluate code regions under noisy conditions. Eliminate the clearly worst third, preserve ambiguity in the middle, iterate." (Works because evaluations are unreliable)
+
+---
+
+### **8.5 Not Gradient Descent**
+
+**Gradient Descent:** Follow the steepest direction of improvement in a continuous space.
+
+**Why Quaylyn's Law is different:**
+- Gradient descent **assumes a differentiable landscape** - you can compute gradients
+- Quaylyn's Law operates on **discrete, non-differentiable spaces** - code paths, design choices, historical theories
+- Gradient descent follows continuous slopes; Quaylyn's Law eliminates discrete chunks
+- Gradient descent requires smooth error surfaces; Quaylyn's Law handles jagged, discontinuous problems
+- Gradient descent is optimization; Quaylyn's Law is discovery through elimination
+
+---
+
+### **8.6 Not Process of Elimination (as commonly understood)**
+
+**Process of Elimination (informal):** "Try everything, eliminate what fails."
+
+**Why Quaylyn's Law is different:**
+- Informal elimination often means **exhaustive testing** - try all options sequentially
+- Quaylyn's Law uses **comparative elimination** - evaluate in batches, eliminate worst subset, iterate on survivors
+- Process of elimination is typically brute-force (try until something works)
+- Quaylyn's Law is systematic and optimal (eliminate at ~33% rate, proven to minimize failure)
+- Process of elimination doesn't specify how much to eliminate; Quaylyn's Law empirically derives the optimal rate
+
+---
+
+### **8.7 Summary: The Unique Position of Quaylyn's Law**
+
+| Framework | Requires | Stage | Method |
+|-----------|----------|-------|--------|
+| **Occam's Razor** | Competing explanations | Selection | Choose simplest |
+| **Bayesian Inference** | Prior probabilities | Updating | Calculate posteriors |
+| **Scientific Method** | Hypothesis | Testing | Falsification |
+| **Binary Search** | Sorted space | Navigation | Halve repeatedly |
+| **Gradient Descent** | Differentiable landscape | Optimization | Follow slope |
+| **Quaylyn's Law** | **Nothing** | **Discovery** | **Eliminate worst ~33%** |
+
+**Quaylyn's Law is a pre-model framework.** It operates when:
+- You don't yet have theories (so Occam's Razor doesn't apply)
+- You don't have priors (so Bayesian inference can't start)
+- You can't form hypotheses (so the scientific method is premature)
+- The space isn't sorted (so binary search fails)
+- There's no gradient (so gradient descent doesn't work)
+
+It generates candidate regions through optimal elimination (~33% per iteration), allowing structure to emerge **before you claim to understand what that structure is**.
 
 ---
 
