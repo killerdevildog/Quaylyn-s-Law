@@ -293,6 +293,48 @@ A second test suite validates the **reversibility** claim in Quaylyn's Law by ad
 
 Even when the signal is **completely buried in noise 33 times stronger**, progressive elimination with error correction still finds the target **more than 3× better than early commitment**.
 
+### Multi-Attempt Correction (2,000,000 Tests): How Many Retries To Push Accuracy Higher?
+
+The original correction test (`+CORRECT` / `+BACKTRACK`) only gets **two total attempts** (an initial guess plus one correction pass). To explore what happens when we allow *more* correction attempts, we ran a third suite:
+
+**Multi-Attempt Test:** [quaylyns_law_with_unlimited_correction.cpp](General%20Tests/quaylyns_law_with_unlimited_correction.cpp)
+- **2,000,000 test cases** (adds an attempt-budget dimension)
+- Uses the same non-cheating correction idea: after each failure it infers direction from noisy neighbor sampling, then re-searches a refined region.
+- **TRY = total attempts allowed** (includes the initial attempt): `TRY=1,2,3,5,10`
+
+#### 3333% Noise @ 0.001% Information: Retry Budget vs Success
+
+Below are the **multi-attempt averages across N=2..9** (this keeps the table compact). For comparison, the best single-budget correction from the earlier test is shown as `+BKT N=3`.
+
+| Search Space | CERT | TRY=1 (SINGLE) | TRY=2 | TRY=3 | TRY=5 | TRY=10 |
+|-------------|------|----------------|-------|-------|-------|--------|
+| 100 | 16.8% | 29.3% | 42.6% | 48.2% | 53.1% | **58.9%** |
+| 500 | 9.6% | 17.8% | 27.2% | 34.8% | 38.9% | **41.5%** |
+| 1000 | 9.2% | 16.4% | 29.6% | 34.8% | 42.7% | **45.7%** |
+| 5000 | 8.0% | 17.9% | 30.9% | 36.4% | 43.4% | **47.4%** |
+| 10000 | 6.4% | 18.7% | 30.1% | 36.4% | 43.9% | **47.4%** |
+
+**What this shows:**
+- **Retries systematically increase success** even in the “whisper in a jet engine” regime.
+- The jump from **TRY=1 → TRY=2** is the biggest (matches the intuition behind `+CORRECT`).
+- By **TRY=10**, success reaches **~42–59%** depending on search-space size — far above early commitment.
+
+#### How this compares to the earlier correction test
+
+At the same conditions (3333% noise, 0.001% info):
+- Prior test’s strongest single configuration in the README (e.g. **`+BACKTRACK N=3`**) reached:
+   - **50.8%** (Search 100)
+   - **30.0%** (Search 500)
+   - **28.8%** (Search 1000)
+   - **33.2%** (Search 10000)
+- Multi-attempt **TRY=10** (averaged across N=2..9) reaches:
+   - **58.9%** (Search 100)
+   - **41.5%** (Search 500)
+   - **45.7%** (Search 1000)
+   - **47.4%** (Search 10000)
+
+So: **more attempts continue to buy accuracy**, which is exactly what the reversibility term ($R$) predicts: when information is low and noise is extreme, *the ability to revise a wrong step matters more than the confidence of the first step*.
+
 ---
 
 ## Neural Network Training: Quaylyn's Law vs Gradient Descent
