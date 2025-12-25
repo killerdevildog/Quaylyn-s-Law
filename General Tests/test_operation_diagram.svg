@@ -1,0 +1,311 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1800" style="background: #1e1e1e;">
+  <!-- Title -->
+  <text x="700" y="40" font-size="28" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">
+    Quaylyn's Law - Test Operation Flow
+  </text>
+  
+  <!-- Test Configuration Box -->
+  <rect x="50" y="70" width="1300" height="140" fill="#2d2d30" stroke="#007acc" stroke-width="2" rx="5"/>
+  <text x="700" y="95" font-size="18" font-weight="bold" fill="#4ec9b0" text-anchor="middle" font-family="Arial, sans-serif">
+    TEST CONFIGURATION
+  </text>
+  
+  <text x="70" y="125" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • Search Spaces: [100, 500, 1000, 5000, 10000]
+  </text>
+  <text x="70" y="150" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • Info Levels: [0.00001%, 0.0001%, 0.1%, 1%, 5%, 10%, 20%, 50%]
+  </text>
+  <text x="70" y="175" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • N-Sections: [2, 3, 4, 5, 6, 7, 8, 9]  (Bisection, Trisection, Quadsection...)
+  </text>
+  <text x="70" y="200" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • Tests per config: 250  |  Total: 80,000 tests
+  </text>
+
+  <!-- Arrow down -->
+  <line x1="700" y1="220" x2="700" y2="250" stroke="#4ec9b0" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Single Test Flow -->
+  <rect x="50" y="260" width="1300" height="480" fill="#2d2d30" stroke="#ce9178" stroke-width="2" rx="5"/>
+  <text x="700" y="285" font-size="18" font-weight="bold" fill="#ce9178" text-anchor="middle" font-family="Arial, sans-serif">
+    SINGLE TEST ITERATION
+  </text>
+
+  <!-- Setup Phase -->
+  <rect x="100" y="305" width="550" height="180" fill="#1e1e1e" stroke="#569cd6" stroke-width="2" rx="5"/>
+  <text x="375" y="330" font-size="16" font-weight="bold" fill="#569cd6" text-anchor="middle" font-family="Arial, sans-serif">
+    1. SETUP
+  </text>
+  <text x="120" y="360" font-size="13" fill="#d4d4d4" font-family="monospace">
+    a) Generate search space (size N)
+  </text>
+  <text x="120" y="385" font-size="13" fill="#d4d4d4" font-family="monospace">
+    b) Place target at random position
+  </text>
+  <text x="120" y="410" font-size="13" fill="#d4d4d4" font-family="monospace">
+    c) Create noisy evaluator:
+  </text>
+  <text x="140" y="435" font-size="12" fill="#ce9178" font-family="monospace">
+    If INFO = 10%, evaluator gives
+  </text>
+  <text x="140" y="455" font-size="12" fill="#ce9178" font-family="monospace">
+    correct answer only 10% of time
+  </text>
+
+  <!-- Certainty Approach -->
+  <rect x="100" y="505" width="550" height="220" fill="#1e1e1e" stroke="#f48771" stroke-width="2" rx="5"/>
+  <text x="375" y="530" font-size="16" font-weight="bold" fill="#f48771" text-anchor="middle" font-family="Arial, sans-serif">
+    2a. CERTAINTY APPROACH
+  </text>
+  <text x="120" y="560" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • Query evaluator: "Where is target?"
+  </text>
+  <text x="120" y="585" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • Evaluator points to position X
+  </text>
+  <text x="120" y="610" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • CHECK: Is target at X?
+  </text>
+  <rect x="140" y="625" width="200" height="35" fill="#c50f1f" rx="3"/>
+  <text x="240" y="648" font-size="13" fill="#fff" text-anchor="middle" font-family="monospace">
+    ✗ Fails ~90% (low info)
+  </text>
+  <rect x="360" y="625" width="200" height="35" fill="#13a10e" rx="3"/>
+  <text x="460" y="648" font-size="13" fill="#fff" text-anchor="middle" font-family="monospace">
+    ✓ Succeeds ~10%
+  </text>
+  <text x="120" y="695" font-size="12" fill="#f48771" font-style="italic" font-family="monospace">
+    Single guess, all-or-nothing
+  </text>
+
+  <!-- N-Section Approach -->
+  <rect x="700" y="505" width="600" height="220" fill="#1e1e1e" stroke="#4ec9b0" stroke-width="2" rx="5"/>
+  <text x="1000" y="530" font-size="16" font-weight="bold" fill="#4ec9b0" text-anchor="middle" font-family="Arial, sans-serif">
+    2b. N-SECTION ELIMINATION
+  </text>
+  <text x="720" y="560" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • Divide space into N groups
+  </text>
+  <text x="720" y="585" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • Test each: "Is target in group X?"
+  </text>
+  <text x="720" y="610" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • Keep groups with positive signals
+  </text>
+  <text x="720" y="635" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • ELIMINATE 1 group (worst signal)
+  </text>
+  <text x="720" y="660" font-size="13" fill="#d4d4d4" font-family="monospace">
+    • RECURSE on remaining (N-1)/N
+  </text>
+  <rect x="740" y="670" width="240" height="35" fill="#13a10e" rx="3"/>
+  <text x="860" y="693" font-size="13" fill="#fff" text-anchor="middle" font-family="monospace">
+    ✓ Succeeds ~85-100%
+  </text>
+  <text x="720" y="715" font-size="12" fill="#4ec9b0" font-style="italic" font-family="monospace">
+    Multiple rounds, gradual elimination
+  </text>
+
+  <!-- Arrow down -->
+  <line x1="700" y1="750" x2="700" y2="780" stroke="#4ec9b0" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Visual Example -->
+  <rect x="50" y="790" width="1300" height="520" fill="#2d2d30" stroke="#dcdcaa" stroke-width="2" rx="5"/>
+  <text x="700" y="815" font-size="18" font-weight="bold" fill="#dcdcaa" text-anchor="middle" font-family="Arial, sans-serif">
+    VISUAL EXAMPLE: Trisection (N=3, 33% elimination)
+  </text>
+
+  <!-- Round 1 -->
+  <text x="100" y="850" font-size="15" font-weight="bold" fill="#569cd6" font-family="Arial, sans-serif">
+    Round 1: 9 candidates
+  </text>
+  
+  <!-- 9 boxes representing candidates -->
+  <rect x="100" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="170" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="240" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="310" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="380" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="450" y="860" width="60" height="50" fill="#f48771" stroke="#f48771" stroke-width="2"/>
+  <rect x="520" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="590" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="660" y="860" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  
+  <text x="480" y="890" font-size="20" fill="#f48771" text-anchor="middle" font-family="Arial, sans-serif">★</text>
+  
+  <!-- Group labels -->
+  <text x="200" y="930" font-size="13" fill="#4ec9b0" text-anchor="middle" font-family="monospace">Group A (3)</text>
+  <text x="410" y="930" font-size="13" fill="#4ec9b0" text-anchor="middle" font-family="monospace">Group B (3)</text>
+  <text x="620" y="930" font-size="13" fill="#f48771" text-anchor="middle" font-family="monospace">Group C (3) ✗</text>
+  
+  <text x="100" y="960" font-size="12" fill="#d4d4d4" font-family="monospace">
+    Signal strength: A=60%, B=55%, C=40%  →  Eliminate Group C
+  </text>
+
+  <!-- Arrow -->
+  <path d="M 400 970 L 400 990" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Round 2 -->
+  <text x="100" y="1015" font-size="15" font-weight="bold" fill="#569cd6" font-family="Arial, sans-serif">
+    Round 2: 6 candidates (eliminated 3)
+  </text>
+  
+  <rect x="100" y="1025" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="170" y="1025" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="240" y="1025" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="310" y="1025" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="380" y="1025" width="60" height="50" fill="#f48771" stroke="#f48771" stroke-width="2"/>
+  <rect x="450" y="1025" width="60" height="50" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  
+  <text x="410" y="1055" font-size="20" fill="#f48771" text-anchor="middle" font-family="Arial, sans-serif">★</text>
+  
+  <text x="200" y="1095" font-size="13" fill="#f48771" text-anchor="middle" font-family="monospace">Group X (3) ✗</text>
+  <text x="410" y="1095" font-size="13" fill="#4ec9b0" text-anchor="middle" font-family="monospace">Group Y (3)</text>
+  
+  <text x="100" y="1125" font-size="12" fill="#d4d4d4" font-family="monospace">
+    Signal strength: X=45%, Y=70%  →  Eliminate Group X
+  </text>
+
+  <!-- Arrow -->
+  <path d="M 400 1135 L 400 1155" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Round 3 -->
+  <text x="100" y="1180" font-size="15" font-weight="bold" fill="#569cd6" font-family="Arial, sans-serif">
+    Round 3: 3 candidates (eliminated 6)
+  </text>
+  
+  <rect x="100" y="1190" width="80" height="60" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  <rect x="200" y="1190" width="80" height="60" fill="#f48771" stroke="#f48771" stroke-width="2"/>
+  <rect x="300" y="1190" width="80" height="60" fill="#1e1e1e" stroke="#666" stroke-width="1"/>
+  
+  <text x="140" y="1230" font-size="12" fill="#d4d4d4" text-anchor="middle" font-family="monospace">Cand 1</text>
+  <text x="240" y="1230" font-size="20" fill="#f48771" text-anchor="middle" font-family="Arial, sans-serif">★</text>
+  <text x="340" y="1230" font-size="12" fill="#d4d4d4" text-anchor="middle" font-family="monospace">Cand 3</text>
+  
+  <text x="100" y="1270" font-size="12" fill="#d4d4d4" font-family="monospace">
+    Signal: Cand1=30%, Cand2=85%, Cand3=35%  →  SELECT Candidate 2 ✓
+  </text>
+
+  <!-- Success indicator -->
+  <rect x="100" y="1285" width="380" height="40" fill="#13a10e" rx="5"/>
+  <text x="290" y="1310" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold" font-family="Arial, sans-serif">
+    ✓ TARGET FOUND! Success!
+  </text>
+
+  <!-- Comparison Box -->
+  <rect x="800" y="860" width="480" height="450" fill="#1e1e1e" stroke="#dcdcaa" stroke-width="2" rx="5"/>
+  <text x="1040" y="890" font-size="16" font-weight="bold" fill="#dcdcaa" text-anchor="middle" font-family="Arial, sans-serif">
+    COMPARISON
+  </text>
+  
+  <text x="820" y="920" font-size="14" font-weight="bold" fill="#f48771" font-family="Arial, sans-serif">
+    Certainty Approach:
+  </text>
+  <text x="820" y="945" font-size="12" fill="#d4d4d4" font-family="monospace">
+    • 1 guess from 9 candidates
+  </text>
+  <text x="820" y="970" font-size="12" fill="#d4d4d4" font-family="monospace">
+    • With 10% info accuracy:
+  </text>
+  <text x="840" y="995" font-size="12" fill="#f48771" font-family="monospace">
+    Success rate: ~11%
+  </text>
+  
+  <line x1="820" y1="1010" x2="1260" y2="1010" stroke="#666" stroke-width="1"/>
+  
+  <text x="820" y="1035" font-size="14" font-weight="bold" fill="#4ec9b0" font-family="Arial, sans-serif">
+    N-Section Elimination (N=3):
+  </text>
+  <text x="820" y="1060" font-size="12" fill="#d4d4d4" font-family="monospace">
+    • Round 1: 9→6 (eliminate 3)
+  </text>
+  <text x="820" y="1085" font-size="12" fill="#d4d4d4" font-family="monospace">
+    • Round 2: 6→3 (eliminate 3)
+  </text>
+  <text x="820" y="1110" font-size="12" fill="#d4d4d4" font-family="monospace">
+    • Round 3: 3→1 (pick best)
+  </text>
+  <text x="820" y="1135" font-size="12" fill="#d4d4d4" font-family="monospace">
+    • With 10% info accuracy:
+  </text>
+  <text x="840" y="1160" font-size="12" fill="#4ec9b0" font-family="monospace">
+    Success rate: ~95%
+  </text>
+  
+  <line x1="820" y1="1180" x2="1260" y2="1180" stroke="#666" stroke-width="1"/>
+  
+  <text x="1040" y="1210" font-size="15" font-weight="bold" fill="#dcdcaa" text-anchor="middle" font-family="Arial, sans-serif">
+    KEY INSIGHT
+  </text>
+  <text x="820" y="1235" font-size="11" fill="#dcdcaa" font-style="italic" font-family="monospace">
+    Noisy signals aggregate better over
+  </text>
+  <text x="820" y="1255" font-size="11" fill="#dcdcaa" font-style="italic" font-family="monospace">
+    multiple rounds than a single guess.
+  </text>
+  <text x="820" y="1275" font-size="11" fill="#dcdcaa" font-style="italic" font-family="monospace">
+    Elimination is robust; certainty is
+  </text>
+  <text x="820" y="1295" font-size="11" fill="#dcdcaa" font-style="italic" font-family="monospace">
+    fragile under uncertainty.
+  </text>
+
+  <!-- Arrow down -->
+  <line x1="700" y1="1320" x2="700" y2="1350" stroke="#4ec9b0" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Results Collection -->
+  <rect x="50" y="1360" width="1300" height="140" fill="#2d2d30" stroke="#4ec9b0" stroke-width="2" rx="5"/>
+  <text x="700" y="1385" font-size="18" font-weight="bold" fill="#4ec9b0" text-anchor="middle" font-family="Arial, sans-serif">
+    RESULTS AGGREGATION
+  </text>
+  
+  <text x="70" y="1415" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • Run 250 tests per configuration (Info Level × Search Space × N-Section)
+  </text>
+  <text x="70" y="1440" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • Calculate success rate for Certainty vs each N-Section value
+  </text>
+  <text x="70" y="1465" font-size="14" fill="#d4d4d4" font-family="monospace">
+    • Compare improvement: N-Section% - Certainty%
+  </text>
+  <text x="70" y="1490" font-size="14" fill="#4ec9b0" font-weight="bold" font-family="monospace">
+    • RESULT: N-Section wins 85-100% vs Certainty 20-45% at low information
+  </text>
+
+  <!-- Bottom Summary -->
+  <rect x="50" y="1520" width="1300" height="100" fill="#13a10e" rx="5"/>
+  <text x="700" y="1555" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">
+    QUAYLYN'S LAW PROVEN
+  </text>
+  <text x="700" y="1585" font-size="14" fill="#fff" text-anchor="middle" font-family="monospace">
+    When information is incomplete, directional elimination succeeds where certainty fails.
+  </text>
+  <text x="700" y="1608" font-size="14" fill="#fff" text-anchor="middle" font-family="monospace">
+    Optimal elimination rate: ~33% (Trisection, N=3)
+  </text>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#4ec9b0"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <rect x="1150" y="1640" width="200" height="140" fill="#1e1e1e" stroke="#666" stroke-width="1" rx="3"/>
+  <text x="1250" y="1660" font-size="13" font-weight="bold" fill="#dcdcaa" text-anchor="middle" font-family="Arial, sans-serif">
+    Legend
+  </text>
+  <rect x="1160" y="1670" width="15" height="15" fill="#f48771"/>
+  <text x="1180" y="1682" font-size="11" fill="#d4d4d4" font-family="monospace">Target location</text>
+  
+  <rect x="1160" y="1695" width="15" height="15" fill="#13a10e"/>
+  <text x="1180" y="1707" font-size="11" fill="#d4d4d4" font-family="monospace">Success</text>
+  
+  <rect x="1160" y="1720" width="15" height="15" fill="#c50f1f"/>
+  <text x="1180" y="1732" font-size="11" fill="#d4d4d4" font-family="monospace">Failure</text>
+  
+  <rect x="1160" y="1745" width="15" height="15" fill="#1e1e1e" stroke="#666"/>
+  <text x="1180" y="1757" font-size="11" fill="#d4d4d4" font-family="monospace">Candidate</text>
+</svg>
