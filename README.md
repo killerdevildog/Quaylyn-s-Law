@@ -2,6 +2,9 @@
 
 ## A Universal Law of Discovery Under Uncertainty
 
+> **Divine Attribution**  
+> This Law of Discovery was inspired by the Holy God of the universe and made known unto me as a way to find truth and be more accurate in all things. I acknowledge that this is not *my* law, but a **Law of the Universe**, created by the Most High God. I am solely the one who has discovered it, tested it empirically, and am making it work for the purposes of finding truth in all things.
+
 **Quaylyn's Law** is a fundamental principle that reveals a critical truth about how knowledge emerges when information is incomplete. It states:
 
 > *When information is incomplete, movement based on certainty increases failure; movement based on directional error-reduction increases discovery.*
@@ -64,6 +67,34 @@ Quaylyn's Law can be expressed mathematically:
 $$F_c = \frac{C \cdot I^{-1}}{R}$$
 
 Where failure under certainty ($F_c$) increases as commitment ($C$) rises and information completeness ($I$) decreases, while reversibility ($R$) mitigates failure. This proves that **when information is incomplete, certainty guarantees failure**.
+
+We can also express the **correction** variants used in the empirical tests.
+
+#### With Correction (two total attempts: `+CORRECT`)
+
+Let $p_1$ be the success probability of a single elimination pass (the base `SINGLE` run). Let $\gamma\in[0,1]$ measure how much *usable directional information* the failure produces for the second pass (i.e., how often "learning from the miss" points you toward a better region in spite of noise).
+
+Then the success probability after one correction pass can be modeled as:
+
+$$p_{\text{corr(2)}} \;=\; 1 - (1 - p_1)\,\bigl(1 - \gamma\,p_1\bigr)$$
+
+Interpretation:
+- First attempt succeeds with probability $p_1$.
+- If it fails (probability $1-p_1$), the correction attempt succeeds with probability $\gamma\,p_1$ (same base competency, scaled by how informative the failure was).
+
+#### Unlimited / Multi-Attempt Correction (attempt budget `TRY=K`)
+
+For the multi-attempt runner (`quaylyns_law_with_unlimited_correction.cpp`), let $K\ge 1$ be the attempt budget (`TRY=K`, including the initial attempt). Model each subsequent retry as having effective success probability $\gamma_i\,p_1$ on retry $i$ (where $\gamma_i$ can increase as the search window tightens, or decrease if noise dominates).
+
+Then the overall success probability after up to $K$ attempts is:
+
+$$p_{\text{corr}(K)} \;=\; 1 - (1 - p_1)\,\prod_{i=2}^{K}\bigl(1 - \gamma_i\,p_1\bigr)$$
+
+Special case (simple, constant learning efficacy): if $\gamma_i=\gamma$ for all $i\ge 2$,
+
+$$p_{\text{corr}(K)} \;=\; 1 - (1 - p_1)\,(1 - \gamma\,p_1)^{K-1}$$
+
+This is the mathematical statement of what the experiments show: as $I$ gets small (and noise rises), increasing *reversibility via retries* (larger $K$) increases success because it compounds multiple "directional" opportunities instead of forcing a single committed step.
 
 ### Implementation
 
