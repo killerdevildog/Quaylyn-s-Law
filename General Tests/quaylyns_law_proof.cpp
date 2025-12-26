@@ -26,7 +26,7 @@
 const long long TESTS_PER_CONFIG = 250LL;  // Tests per (info_level, search_size, section_count) combination
 const std::vector<int> SEARCH_SPACE_SIZES = {100, 500, 1000, 5000, 10000}; // search size over 10k might crash your computer it did on mine at 64gbs of ram
 const std::vector<double> INFO_LEVELS = {0.00001, 0.0001, 0.001, 0.01, 0.05, 0.10, 0.20, 0.50};
-const std::vector<int> SECTION_COUNTS = {2, 3, 4, 5, 6, 7, 8, 9};  // bisection, trisection, quadsection, etc.
+const std::vector<int> SECTION_COUNTS = {2, 3, 4, 5, 6, 7, 8, 9, 33};  // bisection, trisection, quadsection, etc.
 
 // =============================================================================
 // NOISE CONFIGURATION

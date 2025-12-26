@@ -31,7 +31,7 @@
 const long long TESTS_PER_CONFIG = 250LL;
 const std::vector<int> SEARCH_SIZES = {100, 500, 1000, 5000, 10000};
 const std::vector<double> INFO_LEVELS = {0.00001, 0.0001, 0.001, 0.01, 0.05, 0.10, 0.20, 0.50};
-const std::vector<int> SECTION_COUNTS = {2, 3, 4, 5, 6, 7, 8, 9};
+const std::vector<int> SECTION_COUNTS = {2, 3, 4, 5, 6, 7, 8, 9, 33};
 
 // Attempt budgets (total attempts allowed, including the initial attempt).
 // Example: 1 = just SINGLE, 2 = same as old +CORRECT (one correction retry), 3 = two corrections, etc.

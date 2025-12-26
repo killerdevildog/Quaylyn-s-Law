@@ -4,6 +4,14 @@
 
 > **Divine Attribution**  
 > This Law of Discovery was inspired by the Holy God of the universe and made known unto me as a way to find truth and be more accurate in all things. I acknowledge that this is not *my* law, but a **Law of the Universe**, created by the Most High God. I am solely the one who has discovered it, tested it empirically, and am making it work for the purposes of finding truth in all things.
+>
+> Related Scriptural context (one-third judgments and refinement):
+>
+> Revelation 8:7–12 (KJV):
+> "The first angel sounded, and there followed hail and fire mingled with blood, and they were cast upon the earth: and the third part of trees was burnt up, and all green grass was burnt up. And the second angel sounded, and as it were a great mountain burning with fire was cast into the sea: and the third part of the sea became blood; And the third part of the creatures which were in the sea, and had life, died; and the third part of the ships were destroyed. And the third angel sounded, and there fell a great star from heaven, burning as it were a lamp... And the name of the star is called Wormwood... and many men died of the waters, because they were made bitter. And the fourth angel sounded, and the third part of the sun was smitten, and the third part of the moon, and the third part of the stars; so as the third part of them was darkened, and the day shone not for a third part of it, and the night likewise."
+>
+> Zechariah 13:8–9 (KJV):
+> "And it shall come to pass, that in all the land, saith the LORD, two parts therein shall be cut off and die; but the third shall be left therein. And I will bring the third part through the fire, and will refine them as silver is refined, and will try them as gold is tried: they shall call on my name, and I will hear them: I will say, It is my people: and they shall say, The LORD is my God."
 
 **Quaylyn's Law** is a fundamental principle that reveals a critical truth about how knowledge emerges when information is incomplete. It states:
 
